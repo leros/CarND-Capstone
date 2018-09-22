@@ -126,7 +126,6 @@ class WaypointUpdater(object):
 		self.waypoints_2d = [[waypoint.pose.pose.position.x, \
 					waypoint.pose.pose.position.y] \
 					for waypoint in waypoints.waypoints]
-		print(len(self.waypoints_2d))
 		self.waypoint_tree = KDTree(self.waypoints_2d)
 
 
