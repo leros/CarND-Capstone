@@ -18,7 +18,7 @@ class Controller(object):
 	ki = 0.1
 	kd = 0.
 	mn = 0. # Min throttle value
-	mx = 0.9 #0.2 # Max throttle value
+	mx = 0.2 # Max throttle value
 	self.throttle_controller = PID(kp, ki, kd, mn, mx)
 
 	tau = 0.5 # 1/(2pi*tau) = cutoff frequency
@@ -37,8 +37,6 @@ class Controller(object):
     def control(self, current_vel, dbw_enabled, linear_vel, angular_vel):
 	
         # TODO: Change the arg, kwarg list to suit your needs
-        # Return throttle, brake, steer
-        #return 1., 0., 0.
 	if not dbw_enabled:
 		self.throttle_controller.reset()
                 return 0., 0., 0.
@@ -64,10 +62,5 @@ class Controller(object):
             throttle = 0
             decel = max(vel_error, self.decel_limit)
             brake = abs(decel)*self.vehicle_mass*self.wheel_radius
-
-        rospy.logwarn("throttle: {0}".format(throttle))
-        #rospy.logwarn("brake: {0}".format(brake))
-        rospy.logwarn("steering: {0}".format(steering))
-
 
         return throttle, brake, steering
